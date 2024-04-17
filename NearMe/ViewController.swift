@@ -74,11 +74,7 @@ class ViewController: UIViewController {
     
     private func checkLocationAuhtorization() {
         guard let location = locationManager.location else { return }
-        setRegion(of: location)
-    }
-    
-    
-    private func setRegion(of location: CLLocation) {
+       
         switch locationManager.authorizationStatus {
         case .authorizedWhenInUse, .authorizedAlways:
             let region = MKCoordinateRegion(
@@ -86,7 +82,7 @@ class ViewController: UIViewController {
                 latitudinalMeters: Constants.Position.latitude,
                 longitudinalMeters: Constants.Position.longitude
             )
-            mapView.setRegion(region, animated: true)
+           set(region)
         case .denied:
             print("")
         case .notDetermined, .restricted:
@@ -94,6 +90,10 @@ class ViewController: UIViewController {
         @unknown default:
             print("")
         }
+    }
+    
+    private func set(_ region: MKCoordinateRegion) {
+        mapView.setRegion(region, animated: true)
     }
     
     private struct Constants {
@@ -104,7 +104,6 @@ class ViewController: UIViewController {
             static let latitude: CGFloat = 750
             static let longitude: CGFloat = 750
         }
-        
         struct Size {
             static let fieldHeight: CGFloat = 44
         }
