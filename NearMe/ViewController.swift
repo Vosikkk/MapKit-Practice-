@@ -13,6 +13,8 @@ class ViewController: UIViewController {
     
     let locationManager: CLLocationManager
     
+    var searchFieldConntroller: SearchTextFieldController?
+    
     lazy var mapView: MKMapView = {
         let map = MKMapView()
         map.showsUserLocation = true
@@ -38,6 +40,10 @@ class ViewController: UIViewController {
         locationManager.delegate = self
         locationManager.requestWhenInUseAuthorization()
         locationManager.requestLocation()
+        
+        searchFieldConntroller = SearchTextFieldController(field: searchTextField) { text in
+            self.findNearbyPlaces(by: text)
+        }
         
         setupUI()
     }
@@ -96,6 +102,12 @@ class ViewController: UIViewController {
         mapView.setRegion(region, animated: true)
     }
     
+    
+    private func findNearbyPlaces(by query: String) {
+        
+    }
+    
+    
     private struct Constants {
         
         static let fieldTopOffset: CGFloat = 60
@@ -129,13 +141,28 @@ extension ViewController: CLLocationManagerDelegate {
 
 
 
-private class SearchTextFieldController {
+class SearchTextFieldController: NSObject, UITextFieldDelegate {
     
     let field: UITextField
-    let callback: () -> Void
+    let callback: (String) -> Void
     
-    init(field: UITextField, callback: @escaping () -> Void) {
+    init(field: UITextField, callback: @escaping (String) -> Void) {
         self.field = field
         self.callback = callback
+        super.init()
+        self.field.delegate = self
     }
+    
+    
+    func textFieldShouldReturn(_ textField: UITextField) -> Bool {
+        
+        let text = textField.text ?? ""
+        if !text.isEmpty {
+            textField.resignFirstResponder()
+            callback(text)
+        }
+        
+        return true
+    }
+    
 }
