@@ -13,7 +13,7 @@ class ViewController: UIViewController {
     
     let locationManager: CLLocationManager
     
-    var searchFieldConntroller: SearchTextFieldController?
+    private var searchFieldConntroller: SearchTextFieldController?
     
     lazy var mapView: MKMapView = {
         let map = MKMapView()
@@ -41,10 +41,9 @@ class ViewController: UIViewController {
         locationManager.requestWhenInUseAuthorization()
         locationManager.requestLocation()
         
-        searchFieldConntroller = SearchTextFieldController(field: searchTextField) { text in
-            self.findNearbyPlaces(by: text)
+        searchFieldConntroller = SearchTextFieldController(field: searchTextField) { [unowned self] text in
+            findNearbyPlaces(by: text)
         }
-        
         setupUI()
     }
 
@@ -104,6 +103,20 @@ class ViewController: UIViewController {
     
     
     private func findNearbyPlaces(by query: String) {
+        
+        mapView.removeAnnotations(mapView.annotations)
+        
+        let request = MKLocalSearch.Request()
+        request.naturalLanguageQuery = query
+        request.region = mapView.region
+        
+        let search = MKLocalSearch(request: request)
+        
+        search.start { response, error in
+            guard let response, error == nil else { return }
+            
+            print(response.mapItems)
+        }
         
     }
     
