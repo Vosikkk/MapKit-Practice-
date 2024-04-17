@@ -101,6 +101,23 @@ class ViewController: UIViewController {
         mapView.setRegion(region, animated: true)
     }
     
+    private func presentPlacesSheet() {
+        let placesTVC = PlacesTableViewController()
+        placesTVC.modalPresentationStyle = .pageSheet
+        
+        if let sheet = placesTVC.sheetPresentationController {
+            sheet.prefersGrabberVisible = true
+            sheet.detents = [.medium(), .large()]
+            show(placesTVC)
+        }
+    }
+    
+    
+    
+    private func show(_ vc: UIViewController) {
+        present(vc, animated: true)
+    }
+    
     
     private func findNearbyPlaces(by query: String) {
         
@@ -116,6 +133,7 @@ class ViewController: UIViewController {
             guard let response, error == nil else { return }
             
             print(response.mapItems)
+            self.presentPlacesSheet()
         }
         
     }
