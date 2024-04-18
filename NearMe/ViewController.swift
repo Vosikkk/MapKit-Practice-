@@ -50,7 +50,7 @@ class ViewController: UIViewController {
 
     init(locationManager: CLLocationManager) {
         self.locationManager = locationManager
-        super.init(nibName: nil, bundle: nil)
+        super.init()
     }
     
     
@@ -101,17 +101,17 @@ class ViewController: UIViewController {
         mapView.setRegion(region, animated: true)
     }
     
-    private func presentPlacesSheet() {
-        let placesTVC = PlacesTableViewController()
-        placesTVC.modalPresentationStyle = .pageSheet
-        
-        if let sheet = placesTVC.sheetPresentationController {
-            sheet.prefersGrabberVisible = true
-            sheet.detents = [.medium(), .large()]
-            show(placesTVC)
-        }
-    }
-    
+//    private func presentPlacesSheet() {
+//        let placesTVC = PlacesTableViewController()
+//        placesTVC.modalPresentationStyle = .pageSheet
+//        
+//        if let sheet = placesTVC.sheetPresentationController {
+//            sheet.prefersGrabberVisible = true
+//            sheet.detents = [.medium(), .large()]
+//            show(placesTVC)
+//        }
+//    }
+//    
     
     
     private func show(_ vc: UIViewController) {
@@ -133,7 +133,7 @@ class ViewController: UIViewController {
             guard let response, error == nil else { return }
             
             print(response.mapItems)
-            self.presentPlacesSheet()
+            //self.presentPlacesSheet()
         }
         
     }
