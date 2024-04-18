@@ -1,5 +1,5 @@
 //
-//  ViewController.swift
+//  MapViewController.swift
 //  NearMe
 //
 //  Created by Саша Восколович on 17.04.2024.
@@ -8,7 +8,7 @@
 import UIKit
 import MapKit
 
-class ViewController: UIViewController {
+class MapViewController: UIViewController {
 
     
     let locationManager: CLLocationManager
@@ -50,7 +50,7 @@ class ViewController: UIViewController {
 
     init(locationManager: CLLocationManager) {
         self.locationManager = locationManager
-        super.init()
+        super.init(nibName: nil, bundle: nil)
     }
     
     
@@ -76,24 +76,24 @@ class ViewController: UIViewController {
         mapView.centerYAnchor.constraint(equalTo: view.centerYAnchor).isActive = true
     }
     
-    
+   
     private func checkLocationAuhtorization() {
-        guard let location = locationManager.location else { return }
-       
-        switch locationManager.authorizationStatus {
-        case .authorizedWhenInUse, .authorizedAlways:
-            let region = MKCoordinateRegion(
-                center: location.coordinate,
-                latitudinalMeters: Constants.Position.latitude,
-                longitudinalMeters: Constants.Position.longitude
-            )
-           set(region)
-        case .denied:
-            print("")
-        case .notDetermined, .restricted:
-            print("")
-        @unknown default:
-            print("")
+        if let location = getLocation() {
+            switch locationManager.authorizationStatus {
+            case .authorizedWhenInUse, .authorizedAlways:
+                let region = MKCoordinateRegion(
+                    center: location.coordinate,
+                    latitudinalMeters: Constants.Position.latitude,
+                    longitudinalMeters: Constants.Position.longitude
+                )
+                set(region)
+            case .denied:
+                print("")
+            case .notDetermined, .restricted:
+                print("")
+            @unknown default:
+                print("")
+            }
         }
     }
     
@@ -101,23 +101,30 @@ class ViewController: UIViewController {
         mapView.setRegion(region, animated: true)
     }
     
-//    private func presentPlacesSheet() {
-//        let placesTVC = PlacesTableViewController()
-//        placesTVC.modalPresentationStyle = .pageSheet
-//        
-//        if let sheet = placesTVC.sheetPresentationController {
-//            sheet.prefersGrabberVisible = true
-//            sheet.detents = [.medium(), .large()]
-//            show(placesTVC)
-//        }
-//    }
-//    
+    private func presentSheet(of places: [PlaceAnnotation]) {
+        if let location = getLocation() {
+            let placesTVC = PlacesTableViewController(userLocation: location, places: places)
+            placesTVC.modalPresentationStyle = .pageSheet
+            
+            if let sheet = placesTVC.sheetPresentationController {
+                sheet.prefersGrabberVisible = true
+                sheet.detents = [.medium(), .large()]
+                show(placesTVC)
+            }
+        }
+    }
+    
     
     
     private func show(_ vc: UIViewController) {
         present(vc, animated: true)
     }
     
+    
+    private func getLocation() -> CLLocation? {
+        guard let location = locationManager.location else { return nil }
+        return location
+    }
     
     private func findNearbyPlaces(by query: String) {
         
@@ -129,13 +136,15 @@ class ViewController: UIViewController {
         
         let search = MKLocalSearch(request: request)
         
-        search.start { response, error in
-            guard let response, error == nil else { return }
+        search.start { [weak self] response, error in
+            guard let self, let response, error == nil else { return }
             
-            print(response.mapItems)
-            //self.presentPlacesSheet()
+            let places = response.mapItems.map(PlaceAnnotation.init)
+            
+            places.forEach { self.mapView.addAnnotation($0) }
+
+            presentSheet(of: places)
         }
-        
     }
     
     
@@ -153,7 +162,10 @@ class ViewController: UIViewController {
     }
 }
 
-extension ViewController: CLLocationManagerDelegate {
+
+
+
+extension MapViewController: CLLocationManagerDelegate {
     
     func locationManager(_ manager: CLLocationManager, didUpdateLocations locations: [CLLocation]) {
             
@@ -166,34 +178,4 @@ extension ViewController: CLLocationManagerDelegate {
     func locationManagerDidChangeAuthorization(_ manager: CLLocationManager) {
         checkLocationAuhtorization()
     }
-}
-
-
-
-
-
-class SearchTextFieldController: NSObject, UITextFieldDelegate {
-    
-    let field: UITextField
-    let callback: (String) -> Void
-    
-    init(field: UITextField, callback: @escaping (String) -> Void) {
-        self.field = field
-        self.callback = callback
-        super.init()
-        self.field.delegate = self
-    }
-    
-    
-    func textFieldShouldReturn(_ textField: UITextField) -> Bool {
-        
-        let text = textField.text ?? ""
-        if !text.isEmpty {
-            textField.resignFirstResponder()
-            callback(text)
-        }
-        
-        return true
-    }
-    
 }

@@ -19,7 +19,7 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
         window = UIWindow(frame: windowScene.coordinateSpace.bounds)
         
         let locationManager = CLLocationManager()
-        let vc = ViewController(locationManager: locationManager)
+        let vc = MapViewController(locationManager: locationManager)
         window?.windowScene = windowScene
         window?.rootViewController = vc
         window?.makeKeyAndVisible()

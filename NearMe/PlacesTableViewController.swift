@@ -13,12 +13,12 @@ import MapKit
 class PlacesTableViewController: UITableViewController {
     
     var userLocation: CLLocation
-    let places: [String]
+    let places: [PlaceAnnotation]
     
-    init(userLocation: CLLocation, places: [String]) {
+    init(userLocation: CLLocation, places: [PlaceAnnotation]) {
         self.userLocation = userLocation
         self.places = places
-        super.init()
+        super.init(nibName: nil, bundle: nil)
     }
     
     

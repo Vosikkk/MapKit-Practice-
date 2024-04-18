@@ -9,21 +9,23 @@
 /* Begin PBXBuildFile section */
 		3881B5952BCFF91800D6C3D7 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3881B5942BCFF91800D6C3D7 /* AppDelegate.swift */; };
 		3881B5972BCFF91800D6C3D7 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3881B5962BCFF91800D6C3D7 /* SceneDelegate.swift */; };
-		3881B5992BCFF91800D6C3D7 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3881B5982BCFF91800D6C3D7 /* ViewController.swift */; };
+		3881B5992BCFF91800D6C3D7 /* MapViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3881B5982BCFF91800D6C3D7 /* MapViewController.swift */; };
 		3881B59E2BCFF91900D6C3D7 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 3881B59D2BCFF91900D6C3D7 /* Assets.xcassets */; };
 		3881B5A92BD06C8100D6C3D7 /* PlacesTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3881B5A82BD06C8100D6C3D7 /* PlacesTableViewController.swift */; };
 		38CFDDE52BD139D900A46D36 /* PlaceAnnotation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 38CFDDE42BD139D900A46D36 /* PlaceAnnotation.swift */; };
+		38CFDDE72BD1453A00A46D36 /* SearchFieldController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 38CFDDE62BD1453A00A46D36 /* SearchFieldController.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
 		3881B5912BCFF91800D6C3D7 /* NearMe.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = NearMe.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		3881B5942BCFF91800D6C3D7 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		3881B5962BCFF91800D6C3D7 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
-		3881B5982BCFF91800D6C3D7 /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
+		3881B5982BCFF91800D6C3D7 /* MapViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MapViewController.swift; sourceTree = "<group>"; };
 		3881B59D2BCFF91900D6C3D7 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		3881B5A22BCFF91900D6C3D7 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		3881B5A82BD06C8100D6C3D7 /* PlacesTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlacesTableViewController.swift; sourceTree = "<group>"; };
 		38CFDDE42BD139D900A46D36 /* PlaceAnnotation.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlaceAnnotation.swift; sourceTree = "<group>"; };
+		38CFDDE62BD1453A00A46D36 /* SearchFieldController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchFieldController.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -58,11 +60,12 @@
 			children = (
 				3881B5942BCFF91800D6C3D7 /* AppDelegate.swift */,
 				3881B5962BCFF91800D6C3D7 /* SceneDelegate.swift */,
-				3881B5982BCFF91800D6C3D7 /* ViewController.swift */,
+				3881B5982BCFF91800D6C3D7 /* MapViewController.swift */,
 				3881B59D2BCFF91900D6C3D7 /* Assets.xcassets */,
 				3881B5A22BCFF91900D6C3D7 /* Info.plist */,
 				3881B5A82BD06C8100D6C3D7 /* PlacesTableViewController.swift */,
 				38CFDDE42BD139D900A46D36 /* PlaceAnnotation.swift */,
+				38CFDDE62BD1453A00A46D36 /* SearchFieldController.swift */,
 			);
 			path = NearMe;
 			sourceTree = "<group>";
@@ -136,7 +139,8 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				3881B5992BCFF91800D6C3D7 /* ViewController.swift in Sources */,
+				38CFDDE72BD1453A00A46D36 /* SearchFieldController.swift in Sources */,
+				3881B5992BCFF91800D6C3D7 /* MapViewController.swift in Sources */,
 				3881B5A92BD06C8100D6C3D7 /* PlacesTableViewController.swift in Sources */,
 				38CFDDE52BD139D900A46D36 /* PlaceAnnotation.swift in Sources */,
 				3881B5952BCFF91800D6C3D7 /* AppDelegate.swift in Sources */,
