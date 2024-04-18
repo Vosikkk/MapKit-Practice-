@@ -34,6 +34,11 @@ class MapViewController: UIViewController {
         return field
     }()
     
+    
+    var location: CLLocation? {
+        locationManager.location
+    }
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         
@@ -78,22 +83,22 @@ class MapViewController: UIViewController {
     
    
     private func checkLocationAuhtorization() {
-        if let location = getLocation() {
-            switch locationManager.authorizationStatus {
-            case .authorizedWhenInUse, .authorizedAlways:
-                let region = MKCoordinateRegion(
-                    center: location.coordinate,
-                    latitudinalMeters: Constants.Position.latitude,
-                    longitudinalMeters: Constants.Position.longitude
-                )
-                set(region)
-            case .denied:
-                print("")
-            case .notDetermined, .restricted:
-                print("")
-            @unknown default:
-                print("")
-            }
+        guard let location else { return }
+        
+        switch locationManager.authorizationStatus {
+        case .authorizedWhenInUse, .authorizedAlways:
+            let region = MKCoordinateRegion(
+                center: location.coordinate,
+                latitudinalMeters: Constants.Position.latitude,
+                longitudinalMeters: Constants.Position.longitude
+            )
+            set(region)
+        case .denied:
+            print("")
+        case .notDetermined, .restricted:
+            print("")
+        @unknown default:
+            print("")
         }
     }
     
@@ -102,15 +107,14 @@ class MapViewController: UIViewController {
     }
     
     private func presentSheet(of places: [PlaceAnnotation]) {
-        if let location = getLocation() {
-            let placesTVC = PlacesTableViewController(userLocation: location, places: places)
-            placesTVC.modalPresentationStyle = .pageSheet
-            
-            if let sheet = placesTVC.sheetPresentationController {
-                sheet.prefersGrabberVisible = true
-                sheet.detents = [.medium(), .large()]
-                show(placesTVC)
-            }
+        guard let location else { return }
+        let placesTVC = PlacesTableViewController(userLocation: location, places: places)
+        placesTVC.modalPresentationStyle = .pageSheet
+        
+        if let sheet = placesTVC.sheetPresentationController {
+            sheet.prefersGrabberVisible = true
+            sheet.detents = [.medium(), .large()]
+            show(placesTVC)
         }
     }
     
@@ -120,11 +124,6 @@ class MapViewController: UIViewController {
         present(vc, animated: true)
     }
     
-    
-    private func getLocation() -> CLLocation? {
-        guard let location = locationManager.location else { return nil }
-        return location
-    }
     
     private func findNearbyPlaces(by query: String) {
         
