@@ -17,7 +17,7 @@ class MapViewController: UIViewController {
     
     private var places: [PlaceAnnotation] = []
     
-    lazy var mapView: MKMapView = {
+    private lazy var mapView: MKMapView = {
         let map = MKMapView()
         map.delegate = self
         map.showsUserLocation = true
@@ -25,7 +25,7 @@ class MapViewController: UIViewController {
         return map
     }()
     
-    lazy var searchTextField: UITextField = {
+    private lazy var searchTextField: UITextField = {
         let field = UITextField()
         field.layer.cornerRadius = 10
         field.clipsToBounds = true
