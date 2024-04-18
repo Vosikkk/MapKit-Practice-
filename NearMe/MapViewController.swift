@@ -11,12 +11,15 @@ import MapKit
 class MapViewController: UIViewController {
 
     
-    let locationManager: CLLocationManager
+    private let locationManager: CLLocationManager
     
     private var searchFieldConntroller: SearchTextFieldController?
     
+    private var places: [PlaceAnnotation] = []
+    
     lazy var mapView: MKMapView = {
         let map = MKMapView()
+        map.delegate = self
         map.showsUserLocation = true
         map.translatesAutoresizingMaskIntoConstraints = false
         return map
@@ -138,7 +141,7 @@ class MapViewController: UIViewController {
         search.start { [weak self] response, error in
             guard let self, let response, error == nil else { return }
             
-            let places = response.mapItems.map(PlaceAnnotation.init)
+            places = response.mapItems.map(PlaceAnnotation.init)
             
             places.forEach { self.mapView.addAnnotation($0) }
 
@@ -161,6 +164,26 @@ class MapViewController: UIViewController {
     }
 }
 
+
+
+extension MapViewController: MKMapViewDelegate {
+    
+    private func clearSelection() {
+        places.forEach { $0.isSelected = false }
+    }
+    
+    
+    func mapView(_ mapView: MKMapView, didSelect annotation: any MKAnnotation) {
+        
+        clearSelection()
+        
+        guard let selectedAnnotation = annotation as? PlaceAnnotation else { return }
+        let placeAnnotation = places.first(where: { $0.id == selectedAnnotation.id })
+        placeAnnotation?.isSelected = true
+        
+        presentSheet(of: places)
+    }
+}
 
 
 
