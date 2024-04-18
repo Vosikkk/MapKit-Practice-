@@ -56,7 +56,8 @@ class PlacesTableViewController: UITableViewController {
     
     
     override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        
+        let place = places[indexPath.row]
+        select(place)
     }
     
     private func cell(for place: PlaceAnnotation, by indexPath: IndexPath) -> UITableViewCell {
@@ -67,6 +68,12 @@ class PlacesTableViewController: UITableViewController {
         cell.contentConfiguration = content
         cell.backgroundColor = place.isSelected ? .lightGray : .clear
         return cell
+    }
+    
+    
+    private func select(_ place: PlaceAnnotation) {
+        let vc = PlaceDetailViewController(place: place)
+        show(vc)
     }
 }
 

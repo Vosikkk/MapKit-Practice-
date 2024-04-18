@@ -122,12 +122,6 @@ class MapViewController: UIViewController {
     }
     
     
-    
-    private func show(_ vc: UIViewController) {
-        present(vc, animated: true)
-    }
-    
-    
     private func findNearbyPlaces(by query: String) {
         
         mapView.removeAnnotations(mapView.annotations)
@@ -199,5 +193,12 @@ extension MapViewController: CLLocationManagerDelegate {
     
     func locationManagerDidChangeAuthorization(_ manager: CLLocationManager) {
         checkLocationAuhtorization()
+    }
+}
+
+extension UIViewController {
+    
+    func show(_ vc: UIViewController) {
+        show(vc, sender: self)
     }
 }

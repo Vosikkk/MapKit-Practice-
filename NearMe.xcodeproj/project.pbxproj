@@ -14,6 +14,7 @@
 		3881B5A92BD06C8100D6C3D7 /* PlacesTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3881B5A82BD06C8100D6C3D7 /* PlacesTableViewController.swift */; };
 		38CFDDE52BD139D900A46D36 /* PlaceAnnotation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 38CFDDE42BD139D900A46D36 /* PlaceAnnotation.swift */; };
 		38CFDDE72BD1453A00A46D36 /* SearchFieldController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 38CFDDE62BD1453A00A46D36 /* SearchFieldController.swift */; };
+		38CFDDE92BD156A100A46D36 /* PlaceDetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 38CFDDE82BD156A100A46D36 /* PlaceDetailViewController.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -26,6 +27,7 @@
 		3881B5A82BD06C8100D6C3D7 /* PlacesTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlacesTableViewController.swift; sourceTree = "<group>"; };
 		38CFDDE42BD139D900A46D36 /* PlaceAnnotation.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlaceAnnotation.swift; sourceTree = "<group>"; };
 		38CFDDE62BD1453A00A46D36 /* SearchFieldController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchFieldController.swift; sourceTree = "<group>"; };
+		38CFDDE82BD156A100A46D36 /* PlaceDetailViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlaceDetailViewController.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -66,6 +68,7 @@
 				3881B5A82BD06C8100D6C3D7 /* PlacesTableViewController.swift */,
 				38CFDDE42BD139D900A46D36 /* PlaceAnnotation.swift */,
 				38CFDDE62BD1453A00A46D36 /* SearchFieldController.swift */,
+				38CFDDE82BD156A100A46D36 /* PlaceDetailViewController.swift */,
 			);
 			path = NearMe;
 			sourceTree = "<group>";
@@ -141,6 +144,7 @@
 			files = (
 				38CFDDE72BD1453A00A46D36 /* SearchFieldController.swift in Sources */,
 				3881B5992BCFF91800D6C3D7 /* MapViewController.swift in Sources */,
+				38CFDDE92BD156A100A46D36 /* PlaceDetailViewController.swift in Sources */,
 				3881B5A92BD06C8100D6C3D7 /* PlacesTableViewController.swift in Sources */,
 				38CFDDE52BD139D900A46D36 /* PlaceAnnotation.swift in Sources */,
 				3881B5952BCFF91800D6C3D7 /* AppDelegate.swift in Sources */,
