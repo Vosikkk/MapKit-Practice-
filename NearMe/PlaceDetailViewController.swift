@@ -7,12 +7,15 @@
 
 import Foundation
 import UIKit
+import MapKit
 
 class PlaceDetailViewController: UIViewController {
     
     private let place: PlaceAnnotation
     
-    private var buttonController: DirectionButtonController?
+    private var buttonController: ButtonsController?
+    
+    private let uiApp: UIApplication = UIApplication.shared
     
     private lazy var nameLabel: UILabel = {
         let label = UILabel()
@@ -66,9 +69,6 @@ class PlaceDetailViewController: UIViewController {
         super.viewDidLoad()
         view.backgroundColor = .systemBackground
         setupUI()
-        buttonController = DirectionButtonController(button: directionButton, place: place) { url in
-            UIApplication.shared.open(url)
-        }
     }
     
     private func setupUI() {
@@ -98,8 +98,11 @@ class PlaceDetailViewController: UIViewController {
         stackView.addArrangedSubview(contactStackView)
         
         view.addSubview(stackView)
+        
+        buttonController = ButtonsController(buttons: (directionButton, .map), (callButton, .call), place: place) { [unowned self] url in
+            uiApp.open(url)
+        }
     }
-    
     
     
     private func createStackView(withAxis axis: NSLayoutConstraint.Axis) -> UIStackView {
@@ -120,32 +123,67 @@ class PlaceDetailViewController: UIViewController {
 }
 
 
-private class DirectionButtonController {
+class ButtonsController {
     
-    let button: UIButton
-    let callback: (URL) -> Void
+    let buttons: [(button: UIButton, type: ButtonType)]
+    let handle: (URL) -> Void
     let place: PlaceAnnotation
     
-    var url: String {
-      "http://maps.apple.com/?daddr="
+    
+    private var url: URL? {
+        URL(string: "http://maps.apple.com/?daddr=\(coordinate.latitude),\(coordinate.longitude)")
     }
     
+    private var urlForCall: URL? {
+        URL(string: "tel://\(place.phone.formatPhoneNumber)")
+    }
     
-    init(button: UIButton, place: PlaceAnnotation, callback: @escaping (URL) -> Void) {
-        self.button = button
+    private var coordinate: CLLocationCoordinate2D {
+        place.location.coordinate
+    }
+    
+    init(buttons: (UIButton, ButtonType)..., place: PlaceAnnotation, handle: @escaping (URL) -> Void) {
+        self.buttons = buttons
         self.place = place
-        self.callback = callback
+        self.handle = handle
         setup()
     }
     
     
     private func setup() {
-        button.addTarget(self, action: #selector(buttonTapped), for: .touchUpInside)
+        buttons.forEach { (button , _ ) in
+            button.addTarget(self, action: #selector(buttonTapped), for: .touchUpInside)
+        }
     }
     
-    @objc func buttonTapped() {
-        let coordinate = place.location.coordinate
-        guard let url = URL(string: "\(url)\(coordinate.latitude),\(coordinate.longitude)") else { return }
-        callback(url)
+    @objc func buttonTapped(_ sender: UIButton) {
+        guard let buttonType = buttons.first(where: { $0.button == sender })?.type else { return }
+               
+        switch buttonType {
+        case .map:
+            guard let url else { return }
+            handle(url)
+        case .call:
+            guard let urlForCall else { return }
+            handle(urlForCall)
+        }
+    }
+}
+
+enum ButtonType {
+    case map
+    case call
+}
+
+
+extension String {
+    var formatPhoneNumber: String {
+        do {
+            let regex = try NSRegularExpression(pattern: "[\\s\\p{P}]+")
+            return regex.stringByReplacingMatches(in: self, range: NSRange(self.startIndex..., in: self), withTemplate: "")
+        } catch {
+            print("Error while creating regular expression: \(error.localizedDescription)")
+            return self
+        }
     }
 }
