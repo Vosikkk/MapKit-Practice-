@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		386659DE2BD2AA970026B433 /* ButtonsController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 386659DD2BD2AA970026B433 /* ButtonsController.swift */; };
 		3881B5952BCFF91800D6C3D7 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3881B5942BCFF91800D6C3D7 /* AppDelegate.swift */; };
 		3881B5972BCFF91800D6C3D7 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3881B5962BCFF91800D6C3D7 /* SceneDelegate.swift */; };
 		3881B5992BCFF91800D6C3D7 /* MapViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3881B5982BCFF91800D6C3D7 /* MapViewController.swift */; };
@@ -18,6 +19,7 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		386659DD2BD2AA970026B433 /* ButtonsController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ButtonsController.swift; sourceTree = "<group>"; };
 		3881B5912BCFF91800D6C3D7 /* NearMe.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = NearMe.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		3881B5942BCFF91800D6C3D7 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		3881B5962BCFF91800D6C3D7 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -69,6 +71,7 @@
 				38CFDDE42BD139D900A46D36 /* PlaceAnnotation.swift */,
 				38CFDDE62BD1453A00A46D36 /* SearchFieldController.swift */,
 				38CFDDE82BD156A100A46D36 /* PlaceDetailViewController.swift */,
+				386659DD2BD2AA970026B433 /* ButtonsController.swift */,
 			);
 			path = NearMe;
 			sourceTree = "<group>";
@@ -147,6 +150,7 @@
 				38CFDDE92BD156A100A46D36 /* PlaceDetailViewController.swift in Sources */,
 				3881B5A92BD06C8100D6C3D7 /* PlacesTableViewController.swift in Sources */,
 				38CFDDE52BD139D900A46D36 /* PlaceAnnotation.swift in Sources */,
+				386659DE2BD2AA970026B433 /* ButtonsController.swift in Sources */,
 				3881B5952BCFF91800D6C3D7 /* AppDelegate.swift in Sources */,
 				3881B5972BCFF91800D6C3D7 /* SceneDelegate.swift in Sources */,
 			);

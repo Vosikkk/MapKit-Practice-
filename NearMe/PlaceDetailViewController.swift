@@ -69,6 +69,7 @@ class PlaceDetailViewController: UIViewController {
         super.viewDidLoad()
         view.backgroundColor = .systemBackground
         setupUI()
+        setup()
     }
     
     private func setupUI() {
@@ -80,9 +81,6 @@ class PlaceDetailViewController: UIViewController {
             bottom: Constants.stackBottomOffset,
             trailing: Constants.stackTrailingOffset
         )
-        
-        nameLabel.text = place.name
-        addressLabel.text = place.address
        
         stackView.addArrangedSubview(nameLabel)
         stackView.addArrangedSubview(addressLabel)
@@ -98,7 +96,12 @@ class PlaceDetailViewController: UIViewController {
         stackView.addArrangedSubview(contactStackView)
         
         view.addSubview(stackView)
-        
+    }
+    
+    
+    private func setup() {
+        nameLabel.text = place.name
+        addressLabel.text = place.address
         buttonController = ButtonsController(buttons: (directionButton, .map), (callButton, .call), place: place) { [unowned self] url in
             uiApp.open(url)
         }
@@ -122,58 +125,6 @@ class PlaceDetailViewController: UIViewController {
     }
 }
 
-
-class ButtonsController {
-    
-    let buttons: [(button: UIButton, type: ButtonType)]
-    let handle: (URL) -> Void
-    let place: PlaceAnnotation
-    
-    
-    private var url: URL? {
-        URL(string: "http://maps.apple.com/?daddr=\(coordinate.latitude),\(coordinate.longitude)")
-    }
-    
-    private var urlForCall: URL? {
-        URL(string: "tel://\(place.phone.formatPhoneNumber)")
-    }
-    
-    private var coordinate: CLLocationCoordinate2D {
-        place.location.coordinate
-    }
-    
-    init(buttons: (UIButton, ButtonType)..., place: PlaceAnnotation, handle: @escaping (URL) -> Void) {
-        self.buttons = buttons
-        self.place = place
-        self.handle = handle
-        setup()
-    }
-    
-    
-    private func setup() {
-        buttons.forEach { (button , _ ) in
-            button.addTarget(self, action: #selector(buttonTapped), for: .touchUpInside)
-        }
-    }
-    
-    @objc func buttonTapped(_ sender: UIButton) {
-        guard let buttonType = buttons.first(where: { $0.button == sender })?.type else { return }
-               
-        switch buttonType {
-        case .map:
-            guard let url else { return }
-            handle(url)
-        case .call:
-            guard let urlForCall else { return }
-            handle(urlForCall)
-        }
-    }
-}
-
-enum ButtonType {
-    case map
-    case call
-}
 
 
 extension String {
