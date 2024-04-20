@@ -16,7 +16,7 @@ enum ButtonType {
 class ButtonsController {
     
     let buttons: [(button: UIButton, type: ButtonType)]
-    let callback: (URL) -> Void
+    let completionHandler: (URL) -> Void
     let place: PlaceAnnotation
     
     
@@ -32,10 +32,10 @@ class ButtonsController {
         place.location.coordinate
     }
     
-    init(buttons: (UIButton, ButtonType)..., place: PlaceAnnotation, callback: @escaping (URL) -> Void) {
+    init(buttons: (UIButton, ButtonType)..., place: PlaceAnnotation, completionHandler: @escaping (URL) -> Void) {
         self.buttons = buttons
         self.place = place
-        self.callback = callback
+        self.completionHandler = completionHandler
         setup()
     }
     
@@ -52,10 +52,10 @@ class ButtonsController {
         switch buttonType {
         case .map:
             guard let url else { return }
-            callback(url)
+            completionHandler(url)
         case .call:
             guard let urlForCall else { return }
-            callback(urlForCall)
+            completionHandler(urlForCall)
         }
     }
 }

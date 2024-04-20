@@ -11,11 +11,11 @@ import UIKit
 class SearchTextFieldController: NSObject, UITextFieldDelegate {
     
     let field: UITextField
-    let callback: (String) -> Void
+    let completionHandler: (String) -> Void
     
-    init(field: UITextField, callback: @escaping (String) -> Void) {
+    init(field: UITextField, completionHandler: @escaping (String) -> Void) {
         self.field = field
-        self.callback = callback
+        self.completionHandler = completionHandler
         super.init()
         self.field.delegate = self
     }
@@ -24,7 +24,7 @@ class SearchTextFieldController: NSObject, UITextFieldDelegate {
     func textFieldShouldReturn(_ textField: UITextField) -> Bool {
         if let text = textField.text, !text.isEmpty {
             textField.resignFirstResponder()
-            callback(text)
+            completionHandler(text)
         }
         return true
     }
