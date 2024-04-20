@@ -13,7 +13,7 @@ class MapViewController: UIViewController {
     
     private let locationManager: CLLocationManager
     
-    private var searchFieldConntroller: SearchTextFieldController?
+    private var searchFieldController: SearchTextFieldController?
     
     private var places: [PlaceAnnotation] = []
     
@@ -38,7 +38,7 @@ class MapViewController: UIViewController {
     }()
     
     
-    var location: CLLocation? {
+    private var location: CLLocation? {
         locationManager.location
     }
     
@@ -49,7 +49,7 @@ class MapViewController: UIViewController {
         locationManager.requestWhenInUseAuthorization()
         locationManager.requestLocation()
         
-        searchFieldConntroller = SearchTextFieldController(field: searchTextField) { [unowned self] text in
+        searchFieldController = SearchTextFieldController(field: searchTextField) { [unowned self] text in
             findNearbyPlaces(by: text)
         }
         setupUI()
